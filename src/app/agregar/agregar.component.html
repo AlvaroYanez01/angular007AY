@@ -1,0 +1,92 @@
+<div class="container">
+  <form [formGroup]="formularioCreado">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" class="form-control" formControlName="nombre">
+
+
+      <div class="alert alert-danger" role="alert" *ngIf="formularioCreado.controls
+      ['nombre'].invalid && formularioCreado.controls['nombre'].dirty">
+
+       <span *ngIf="formularioCreado.controls['nombre'].errors.required"> Nombre es Requerido!</span>
+
+
+      </div>
+    </div>
+<!--
+  mostrar el valor de la propiedad "isvalid"
+-->
+Propiedad INVALID: {{formularioCreado.controls['nombre'].invalid }}
+Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
+    <div class="form-group">
+      <label>Correo:</label>
+      <input type="text" class="form-control" formControlName="correo">
+
+      <div *ngIf="formularioCreado.controls
+      ['correo'].invalid && formularioCreado.controls['correo'].dirty">
+
+      <div class="alert alert-danger" role="alert" *ngIf="formularioCreado.controls['correo'].errors.required">
+        Correo Requerido!
+      </div>
+
+      <div class="alert alert-danger" role="alert" *ngIf="formularioCreado.controls['correo'].errors.email">
+        Correo debe tener un formato válido!
+      </div>
+
+      </div>
+
+      <!--
+        Si el control no pasa la validación y son datos sucios mostrar el mensaje de error
+      -->
+
+
+
+    </div>
+
+    <div class="form-group">
+      <label>Clave:</label>
+      <input type="password" class="form-control" formControlName="clave" >
+
+      <div *ngIf="formularioCreado.controls
+      ['correo'].invalid && formularioCreado.controls['clave'].dirty">
+        <div *ngIf="formularioCreado.controls['clave'].errors.required" class="alert alert-danger" role="alert" >
+          Contraseña Requerida!
+        </div>
+
+        <div *ngIf="formularioCreado.controls['clave'].errors.minlength" class="alert alert-danger" role="alert" >
+          Mínimo 6 carácteres!
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+<br>
+
+  <button  *ngIf="esNuevo"  [disabled]="!formularioCreado.valid" class="btn btn-primary" (click)="agregarBoton()" >
+    Agregar</button>
+
+    <button *ngIf="!esNuevo"  [disabled]="!formularioCreado.valid" class="btn btn-danger" (click)="editarBoton()" >
+      Editar</button>
+
+
+  </form>
+
+</div>
+
+<p>Formulario Válido  valid: {{formularioCreado.valid}}</p>
+
+<p class="container"> Formulario value :{{formularioCreado.value | json}}</p>
+
+<div  class="container"  *ngFor="let item of listaUsuarios; let posicion=index">
+  <h4>Nombre: {{item.nombre}}  esta en la posicion {{posicion}}</h4>
+  <p>Correo: {{item.correo}}</p>
+  <p> Contraseña: {{item.clave}}</p>
+
+  <button  class="btn btn-success" (click)="editarUsuarioActual(posicion)">Editar Usuario</button>
+  <button class="btn btn-secondary" (click)="eliminarUsuarioActual(posicion)">Eliminar Usuario</button>
+</div>
+
