@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { AgregarComponent } from './agregar/agregar.component';
 
 import {ReactiveFormsModule} from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AgregarComponent
+    AgregarComponent,
+    HeaderComponent,
+    FooterComponent
 
   ],
   imports: [

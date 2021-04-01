@@ -1,26 +1,120 @@
+<head>
+
+  <title>LISTA USUARIOS ANGULAR.</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+
+</head>
 <div class="container">
+  <div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <h5>Añadir Usuario</h5>
   <form [formGroup]="formularioCreado">
+
+
+
     <div class="form-group">
-      <label>Nombre:</label>
-      <input type="text" class="form-control" formControlName="nombre">
+      <!--
+<label>Nombre:</label>
+      -->
+
+      <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" maxlength="21" onkeypress="return soloLetrasES(event)">
 
 
-      <div class="alert alert-danger" role="alert" *ngIf="formularioCreado.controls
+
+      <div *ngIf="formularioCreado.controls
       ['nombre'].invalid && formularioCreado.controls['nombre'].dirty">
+        <div *ngIf="formularioCreado.controls['nombre'].errors.required" class="alert alert-danger" role="alert" >
+          Nombre es  Requerido!
+        </div>
 
-       <span *ngIf="formularioCreado.controls['nombre'].errors.required"> Nombre es Requerido!</span>
+        <div *ngIf="formularioCreado.controls['nombre'].errors.maxlength" class="alert alert-danger" role="alert" >
+          Máximo 20 carácteres!
+        </div>
 
+        <div *ngIf="formularioCreado.controls['nombre'].errors.pattern" class="alert alert-danger" role="alert" >
+
+          Solo Letras!
+        </div>
+
+      </div>
+
+
+
+    </div>
+    <!-- ************************************************************************  -->
+    <div class="form-group">
+
+      <!--
+<label>Apellido:</label>
+      -->
+
+      <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido" maxlength="21">
+
+
+      <div *ngIf="formularioCreado.controls
+      ['apellido'].invalid && formularioCreado.controls['apellido'].dirty">
+        <div *ngIf="formularioCreado.controls['apellido'].errors.required" class="alert alert-danger" role="alert" >
+          Apellido es  Requerido!
+        </div>
+
+        <div *ngIf="formularioCreado.controls['apellido'].errors.maxlength" class="alert alert-danger" role="alert" >
+          Máximo 20 carácteres!
+        </div>
+
+        <div *ngIf="formularioCreado.controls['apellido'].errors.pattern" class="alert alert-danger" role="alert" >
+
+          Solo Letras!
+        </div>
+
+
+
+
+      </div>
+    </div>
+
+    <!-- ****************************************************** -->
+    <div class="form-group">
+
+      <!--
+ <label>Edad:</label>
+      -->
+
+      <input type="text" class="form-control" formControlName="edad" placeholder="Edad" maxlength="3">
+
+      <div *ngIf="formularioCreado.controls
+      ['edad'].invalid && formularioCreado.controls['edad'].dirty">
+        <div *ngIf="formularioCreado.controls['edad'].errors.required" class="alert alert-danger" role="alert" >
+          Edad es  Requerida!
+        </div>
+
+        <div *ngIf="formularioCreado.controls['edad'].errors.maxlength" class="alert alert-danger" role="alert" >
+          Máximo 2 cifras!
+        </div>
+
+        <div *ngIf="formularioCreado.controls['edad'].errors.pattern" class="alert alert-danger" role="alert" >
+
+          Solo Números!
+        </div>
 
       </div>
     </div>
 <!--
   mostrar el valor de la propiedad "isvalid"
 -->
+<!--
 Propiedad INVALID: {{formularioCreado.controls['nombre'].invalid }}
 Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
+-->
+
     <div class="form-group">
-      <label>Correo:</label>
-      <input type="text" class="form-control" formControlName="correo">
+
+      <!--
+<label>Correo:</label>
+      -->
+
+      <input type="text" class="form-control" formControlName="correo" placeholder="Correo - Email" maxlength="31">
 
       <div *ngIf="formularioCreado.controls
       ['correo'].invalid && formularioCreado.controls['correo'].dirty">
@@ -31,6 +125,10 @@ Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
 
       <div class="alert alert-danger" role="alert" *ngIf="formularioCreado.controls['correo'].errors.email">
         Correo debe tener un formato válido!
+      </div>
+
+      <div *ngIf="formularioCreado.controls['correo'].errors.maxlength" class="alert alert-danger" role="alert" >
+        Máximo  30 carácteres!
       </div>
 
       </div>
@@ -44,17 +142,26 @@ Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
     </div>
 
     <div class="form-group">
-      <label>Clave:</label>
-      <input type="password" class="form-control" formControlName="clave" >
+
+      <!--
+<label>Clave:</label>
+      -->
+
+      <input type="password" class="form-control" formControlName="clave" placeholder="Clave - Contraseña" maxlength="20">
 
       <div *ngIf="formularioCreado.controls
-      ['correo'].invalid && formularioCreado.controls['clave'].dirty">
+      ['clave'].invalid && formularioCreado.controls['clave'].dirty">
         <div *ngIf="formularioCreado.controls['clave'].errors.required" class="alert alert-danger" role="alert" >
           Contraseña Requerida!
         </div>
 
         <div *ngIf="formularioCreado.controls['clave'].errors.minlength" class="alert alert-danger" role="alert" >
           Mínimo 6 carácteres!
+        </div>
+
+        <div *ngIf="formularioCreado.controls['clave'].errors.pattern" class="alert alert-danger" role="alert" >
+
+        No se permiten carácteres especiales!
         </div>
 
       </div>
@@ -69,7 +176,7 @@ Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
   <button  *ngIf="esNuevo"  [disabled]="!formularioCreado.valid" class="btn btn-primary" (click)="agregarBoton()" >
     Agregar</button>
 
-    <button *ngIf="!esNuevo"  [disabled]="!formularioCreado.valid" class="btn btn-danger" (click)="editarBoton()" >
+    <button *ngIf="!esNuevo"  [disabled]="!formularioCreado.valid" class="btn btn-warning" (click)="editarBoton()" >
       Editar</button>
 
 
@@ -77,10 +184,15 @@ Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
 
 </div>
 
-<p>Formulario Válido  valid: {{formularioCreado.valid}}</p>
+<!--
+  <p>Formulario Válido  valid: {{formularioCreado.valid}}</p>
 
 <p class="container"> Formulario value :{{formularioCreado.value | json}}</p>
 
+-->
+
+
+<!--
 <div  class="container"  *ngFor="let item of listaUsuarios; let posicion=index">
   <h4>Nombre: {{item.nombre}}  esta en la posicion {{posicion}}</h4>
   <p>Correo: {{item.correo}}</p>
@@ -88,5 +200,52 @@ Propiedad dirty: {{formularioCreado.controls['nombre'].dirty }}
 
   <button  class="btn btn-success" (click)="editarUsuarioActual(posicion)">Editar Usuario</button>
   <button class="btn btn-secondary" (click)="eliminarUsuarioActual(posicion)">Eliminar Usuario</button>
+</div>
+-->
+
+
+<!--
+  Para que la tabla no de despliegue si no existen datos
+*ngIf="listaUsuarios.length>0"
+-->
+
+<div class="container">
+<div class="col-lg-12">
+  <table class="table table-bordered text-center" *ngIf="listaUsuarios.length>0">
+      <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Edad</th>
+              <th>Correo</th>
+              <th>Contraseña</th>
+              <th >Editar</th>
+              <th>Eliminar</th>
+
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of listaUsuarios; let posicion=index">
+          <td>{{posicion+1}}</td>
+          <td>{{usuario.nombre}}</td>
+          <td>{{usuario.apellido}}</td>
+          <td>{{usuario.edad}}</td>
+          <td>{{usuario.correo}}</td>
+          <td>{{usuario.clave}}</td>
+
+          <td> <i class="fas fa-edit teal icon-lg" (click)="editarUsuarioActual(posicion)"></i></td>
+          <td> <i class="fas fa-trash-alt red icon-lg" (click)="eliminarUsuarioActual(posicion)"></i></td>
+
+
+
+        </tr>
+
+      </tbody>
+  </table>
+ 
+</div>
+
+
 </div>
 
